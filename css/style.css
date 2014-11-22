@@ -23,7 +23,7 @@ h1{
 h2 {
 	font-size: 25px;
 	font-weight:300;
-	margin: 30px auto 20px auto;
+	margin: 30px auto 10px auto;
 	width: 600px;
 }
 ul{
@@ -43,7 +43,9 @@ ul{
 	font-size: 30px;
 	font-weight: 300;
 }
-
+#instruction{
+	margin-bottom:30px;
+}
 button {
 	font-size: 25px;
 	font-weight:300;

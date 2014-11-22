@@ -5,5 +5,5 @@
 	<li><a href="https://github.com/bahalps/frontend-nanodegree-arcade-game">bahalps's game</li>
 	<li><a href="https://github.com/sheryllun/Project3-BugAvoider">sheryllun's game</li>
 	<li><a href="https://github.com/ftchirou/frontend-nanodegree-arcade-game">ftchirou's game</li>
-	<li>Udacity JS helper</li>
+	<li><a href="https://github.com/udacity/frontend-nanodegree-arcade-game">Udacity JS helper</a></li>
 </ul>
