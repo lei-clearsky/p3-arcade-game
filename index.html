@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Effective JavaScript: Frogger</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<header>
+		<h1 id="heading">Arcade Game</h1>
+		<div id="instruction">
+			<h2>Using your arrow keys to reach to the other side in 60 seconds! If you reach destination, you gain 1 point!</h2>
+			<h2>Collect following items :)</h2>
+			<ul>
+				<li>Blue Gem - Bug's speed will slow down for one second!</li>
+				<li>Green Gem - 2 points!</li>
+				<li>Orange Gem - 5 points!</li>
+				<li>Heart - one life!</li>
+			</ul>
+			<h2>Avoid following items :(</h2>
+			<ul>
+				<li>Bug - lose one life!</li>
+				<li>Water - lose one life!</li>
+				<li>Rock - lose one life!</li>
+			</ul>
+			<h2>Ready?</h2>
+		</div>
+		<div id="timer"></div>
+		<div id="life"></div>
+		<div id="score"></div>		
+		<button id="start">Start</button>
+		<button id="try-again" onClick="history.go(0)">Try Again</button>
+	</header>
+
+	<div id="game-board"></div>
+	<div>
+		<h1 id="no-life"></h1>
+		<h1 id="game-over-message"></h1>
+	</div>
+
+    <script src="js/resources.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/engine.js"></script>
+</body>
+</html>
