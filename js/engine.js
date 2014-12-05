@@ -108,7 +108,6 @@ var Engine = (function(global) {
      * return {void}
      */
     function init() {
-        reset();
         lastTime = Date.now();
         doc.getElementById('start').onclick = function() {
            main();          
