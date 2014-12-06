@@ -181,7 +181,7 @@ Game.prototype.gameOver = function() {
   var gameOverMessage = document.getElementById('gameOver-message');
   var zeroLifeMessage = 'Look like your life is zero :( ' + '<br>';
   var gameScoreMessage = 'Your final score is ' + game.score;
-  // if life is zero, display zero life message; if run out of time, display the score
+  // If life is zero, display zero life message; if run out of time, display the score.
   if (this.life === 0){
     gameOverMessage.innerHTML = zeroLifeMessage + gameScoreMessage;
   } else {
