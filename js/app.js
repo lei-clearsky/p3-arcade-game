@@ -3,11 +3,11 @@
  * @author sportzhulei@gmail.com (Lei Zhu)
  */
 
- /**
-  * Game class
-  * The Game class construct, initialize the game and handles logics of the game
-  * @constructor
-  */
+/**
+ * Game class
+ * The Game class construct, initialize the game and handles logics of the game
+ * @constructor
+ */
 
 var Game = function() {
   /**
@@ -64,9 +64,9 @@ var Game = function() {
   });
 };
 /**
-  * Initialize enemy objects and put them into the allEnemies array
-  * @return {void}
-  */
+ * Initialize enemy objects and put them into the allEnemies array
+ * @return {void}
+ */
 Game.prototype.initEnemies = function() {
   // initialize four enemies on each row
   // loop through four enemy rows
@@ -79,9 +79,9 @@ Game.prototype.initEnemies = function() {
   };
 };
 /**
-  * Check if there are collisions between the player and enemies
-  * @return {void}
-  */
+ * Check if there are collisions between the player and enemies
+ * @return {void}
+ */
 Game.prototype.checkCollisions = function() {
   for (var i = 0; i < this.allEnemies.length; i++) {
     if (Math.abs(this.player.x - this.allEnemies[i].x) < 50 && Math.abs(this.player.y - this.allEnemies[i].y) < 50) {
@@ -97,9 +97,9 @@ Game.prototype.checkCollisions = function() {
   };
 };
 /**
-  * Change stats or enemies behavior after player collect items, and update stats
-  * @return {void}
-  */
+ * Change stats or enemies behavior after player collect items, and update stats
+ * @return {void}
+ */
 Game.prototype.checkPlayerHelpers = function() {
   // if the player collect an item
   if (Math.abs(this.player.x - this.playerHelper.x) < 50 && Math.abs(this.player.y - this.playerHelper.y) < 50) {
@@ -142,11 +142,11 @@ Game.prototype.checkPlayerHelpers = function() {
   };
 }; 
 /**
-  * Check if player hit water or reach destination
-  * If player hit water, reset the player location, player will lose one life
-  * If player reach destination, increase score
-  * @return {void}
-  */
+ * Check if player hit water or reach destination
+ * If player hit water, reset the player location, player will lose one life
+ * If player reach destination, increase score
+ * @return {void}
+ */
 Game.prototype.checkDestination = function() {
   if (this.player.y < 0) {
     if ((this.player.x > 10 && this.player.x < 200) || (this.player.x > 200 && this.player.x < 400)) {
@@ -161,10 +161,10 @@ Game.prototype.checkDestination = function() {
   };
 };
 /**
-  * Check if the game needs to be stopped 
-  * If total life is zero, the game will stop
-  * @return {void}
-  */
+ * Check if the game needs to be stopped 
+ * If total life is zero, the game will stop
+ * @return {void}
+ */
 Game.prototype.render = function() {
   if(this.life == 0){
     this.stop = true;
@@ -172,9 +172,9 @@ Game.prototype.render = function() {
   };
 };
 /**
-  * Set the gameOver message
-  * @return {void}
-  */
+ * Set the gameOver message
+ * @return {void}
+ */
 Game.prototype.gameOver = function() {
   var gameBoard = document.getElementById('game-board');
   gameBoard.parentNode.removeChild(gameBoard);
@@ -189,10 +189,10 @@ Game.prototype.gameOver = function() {
   };    
 };
 /**
-  * Enemy class.
-  * Constructs an enemy in the game
-  * @constructor
-  */
+ * Enemy class.
+ * Constructs an enemy in the game
+ * @constructor
+ */
 var Enemy = function() {
   /**
    * Enemy's all y position values
@@ -215,9 +215,9 @@ var Enemy = function() {
   this.sprite = 'images/enemy-bug.png';
 };
 /**
-  * Update the enemy's position
-  * @param dt A time delta between ticks
-  */
+ * Update the enemy's position
+ * @param dt A time delta between ticks
+ */
 Enemy.prototype.update = function(dt) {
   // move enemy
   this.x += this.speed * dt;
@@ -238,10 +238,10 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 /**
-  * Item class.
-  * Constructs item that player can collect during the game
-  * @constructor
-  */
+ * Item class.
+ * Constructs item that player can collect during the game
+ * @constructor
+ */
 var Item = function(){
   /**
    * Item's all x position values
@@ -305,11 +305,11 @@ Item.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 /**
-  * PlayerHelper class.
-  * Constructs an helper item that player can collect during the game
-  * @constructor
-  * @extends {Item}
-  */
+ * PlayerHelper class.
+ * Constructs an helper item that player can collect during the game
+ * @constructor
+ * @extends {Item}
+ */
 var PlayerHelper = function() {
   Item.call(this);
   this.loadNewHelper();
@@ -349,10 +349,10 @@ PlayerHelper.prototype.reset = function() {
   }, 5000);
 };
 /**
-  * Player class.
-  * Constructs a player
-  * @constructor
-  */
+ * Player class.
+ * Constructs a player
+ * @constructor
+ */
 var Player = function() {
   this.sprite = 'images/char-boy.png';
   this.x = 200;
