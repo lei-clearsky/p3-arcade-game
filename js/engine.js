@@ -1,4 +1,4 @@
-// game engine
+// Game engine.
 var Engine = (function(global) {
     /**
      * Predefine the variables we'll be using within this scope,
@@ -19,7 +19,7 @@ var Engine = (function(global) {
     doc.getElementById('game-board').appendChild(canvas);
 
     /**
-     * Sets up the game loop itself and calls the update and render methods
+     * Sets up the game loop itself and calls the update and render methods.
      * @return {void}
      */
     function main() {
@@ -53,7 +53,7 @@ var Engine = (function(global) {
         };
     };
     /**
-     * Sets a timer for the game
+     * Sets a timer for the game.
      * @param {number} time Total seconds of the timer
      * @param {Game} game The new game instance
      * @return {void}
@@ -61,14 +61,14 @@ var Engine = (function(global) {
     function setTimer(time, game) {
         timer = doc.getElementById('timer');
         seconds = time;
-        // if out of time, game over
-        // set game's stop value to true
+        // If out of time, game over.
+        // Set game's stop value to true.
         if (seconds === 0) {
-          game.gameOver();
-          game.stop = true;
+            game.gameOver();
+            game.stop = true;
         };
-        // if game's stop value is false, update timer and continue the game
-        if(!game.stop){
+        // If game's stop value is false, update timer and continue the game.
+        if (!game.stop) {
             seconds--;
             updateTimer();
             win.setTimeout(function(){
@@ -77,7 +77,7 @@ var Engine = (function(global) {
         };
     }; 
     /**
-     * Updates the timer each second
+     * Updates the timer each second.
      * @return {void}
      */
     function updateTimer() {
@@ -89,7 +89,7 @@ var Engine = (function(global) {
         timer.innerHTML = timerStr;
     };
     /**
-     * Format timer string displayed in the game
+     * Format timer string displayed in the game.
      * @param {number} minutes Remaining minutes of the timer
      * @param {number} seconds Ramaining seconds of the timer
      * @return {string}
@@ -193,7 +193,7 @@ var Engine = (function(global) {
         /**
          * Loop through the number of rows and columns defined above
          * and, using the rowImages array, draw the correct image for that
-         * portion of the "grid"
+         * portion of the "grid".
          */
 		for (col = 0; col < numCols; col++) {
 			ctx.drawImage(Resources.get(topRowImages[col]), col * 101, 0);
@@ -211,7 +211,7 @@ var Engine = (function(global) {
     /**
      * This function is called by the render function and is called on each game
      * tick. It's purpose is to then call the render functions defined
-     * on enemy and player entities within app.js
+     * on enemy and player entities within app.js.
      * return {void}
      */
     function renderEntities() {       
@@ -223,7 +223,7 @@ var Engine = (function(global) {
         game.render();          
     };
 
-    // load all of the images
+    // Load all of the images.
     Resources.load([
         'images/stone-block.png',
         'images/water-block.png',

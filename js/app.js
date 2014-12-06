@@ -1,57 +1,57 @@
 /**
- * @fileoverview Classes for the arcade game logic
+ * @fileoverview Classes for the arcade game logic.
  * @author sportzhulei@gmail.com (Lei Zhu)
  */
 
 /**
- * Game class
- * The Game class construct, initialize the game and handles logics of the game
+ * Game class.
+ * The Game class construct, initialize the game and handles logics of the game.
  * @constructor
  */
 
 var Game = function() {
   /**
-   * Enemy's minimum speed
+   * Enemy's minimum speed.
    * @type {number}
    */
   this.minEnemySpeed = 100;
   /**
-   * Enemy's maximum speed
+   * Enemy's maximum speed.
    * @type {number}
    */
   this.maxEnemySpeed = 300;
   /**
-   * Record the game's score
+   * Record the game's score.
    * @type {number}
    */
   this.score = 0;
   /**
-   * Record the game's lives
+   * Record the game's lives.
    * @type {number}
    */
   this.life = 3;
   /**
-   * Set the game to stop or continue
+   * Set the game to stop or continue.
    * @type {boolean}
    */
-  // set stop to false when initialize the game, 
-  // when player lost all lives or no time, set stop to true to stop the game
+  // Set stop to false when initialize the game, 
+  // When player lost all lives or no time, set stop to true to stop the game.
   this.stop = false;
   /**
-   * Enimies in the game
-   * Once game starts each enimy will be initialized and added to this array
+   * Enimies in the game.
+   * Once game starts each enimy will be initialized and added to this array.
    * @type {Array.<Enemy>}
    */
   this.allEnemies = [];
-  // Initializes enimies and add them to the {@code this.allEnemies}
+  // Initializes enimies and add them to the {@code this.allEnemies}.
   this.initEnemies();
-  // initialize a new player
+  // Initialize a new player.
   this.player = new Player();
-  // initialize player helpers
+  // Initialize player helpers.
   this.playerHelper = new PlayerHelper();
-  // assign "this" to new var "that" to use the object in a nested "keyup" function below
+  // Assign "this" to new var "that" to use the object in a nested "keyup" function below.
   var that = this;
-  // use keyboard to move player in the game 
+  // Use keyboard to move player in the game. 
   document.addEventListener('keyup', function(e) {
     var allowedKeys = {
       37: 'left',
@@ -64,87 +64,87 @@ var Game = function() {
   });
 };
 /**
- * Initialize enemy objects and put them into the allEnemies array
+ * Initialize enemy objects and put them into the allEnemies array.
  * @return {void}
  */
 Game.prototype.initEnemies = function() {
-  // initialize four enemies on each row
-  // loop through four enemy rows
+  // Initialize four enemies on each row.
+  // Loop through four enemy rows.
   for (var i = 0; i < 4; i++) {
     var enemy = new Enemy();
-    // return random numbers between minEnemySpeed and maxEnemySpeed
+    // Return random numbers between minEnemySpeed and maxEnemySpeed.
     enemy.speed = Math.floor(Math.random()*this.maxEnemySpeed + this.minEnemySpeed); 
-    // push each enemy to allEnemies array
+    // Push each enemy to allEnemies array.
     this.allEnemies.push(enemy);
   };
 };
 /**
- * Check if there are collisions between the player and enemies
+ * Check if there are collisions between the player and enemies.
  * @return {void}
  */
 Game.prototype.checkCollisions = function() {
   for (var i = 0; i < this.allEnemies.length; i++) {
     if (Math.abs(this.player.x - this.allEnemies[i].x) < 50 && Math.abs(this.player.y - this.allEnemies[i].y) < 50) {
-      // if player is hit, reset player position
+      // If player is hit, reset player position.
       this.player.reset();
       if (this.life > 0) {
-        // if player's life is more than 0, subtract one life
+        // If player's life is more than 0, subtract one life.
         this.life --;
-        // update life
+        // Update life.
         document.getElementById('life').innerHTML = 'Life: ' + this.life;
       };
     };
   };
 };
 /**
- * Change stats or enemies behavior after player collect items, and update stats
+ * Change stats or enemies behavior after player collect items, and update stats.
  * @return {void}
  */
 Game.prototype.checkPlayerHelpers = function() {
-  // if the player collect an item
+  // If the player collect an item.
   if (Math.abs(this.player.x - this.playerHelper.x) < 50 && Math.abs(this.player.y - this.playerHelper.y) < 50) {
-    // if the player collects a heart, add one life
+    // If the player collects a heart, add one life.
     if (this.playerHelper.sprite == 'images/Heart.png') {
       this.life ++;
       document.getElementById('life').innerHTML = 'Life: ' + this.life;
-    // if the player collects a blue gem, slow enemies speed for one second
+    // If the player collects a blue gem, slow enemies speed for one second.
     } else if (this.playerHelper.sprite == 'images/Gem Blue.png') {
-      // save enemies original speed
+      // Save enemies original speed.
       var originalEnemySpeeds = new Array(3);
       var allEnemies = this.allEnemies;
-      // slow each enemy's speed
+      // Slow each enemy's speed.
       for (var i = 0; i < allEnemies.length; i++) {
         originalEnemySpeeds[i] = allEnemies[i].speed;
         allEnemies[i].speed = allEnemies[i].speed / 3;
       };     
-      // change back to original speed after one second
+      // Change back to original speed after one second.
       setTimeout(function() {
         for (var i = 0; i < originalEnemySpeeds.length; i++) {
           allEnemies[i].speed = originalEnemySpeeds[i];
         }; 
       }, 1000); 
-    // if the player collects a green gem, add two points
+    // If the player collects a green gem, add two points.
     } else if (this.playerHelper.sprite == 'images/Gem Green.png') {
       this.score += 2;
       document.getElementById('score').innerHTML = 'Score: ' + this.score;
-    // if the player collects a orange gem, add five points
+    // If the player collects a orange gem, add five points.
     } else if (this.playerHelper.sprite == 'images/Gem Orange.png') {
       this.score += 5;
       document.getElementById('score').innerHTML = 'Score: ' + this.score;
-    // if the player collects a rock, it will lose one life :( don't collect rocks in this game..
+    // If the player collects a rock, it will lose one life :( don't collect rocks in this game.
     } else if (this.playerHelper.sprite == 'images/Rock.png') {
       this.life --;
       document.getElementById('life').innerHTML = 'Life: ' + this.life;
     };
-    // once the player hit the helpers, move the helper off the screen;
+    // Once the player hit the helpers, move the helper off the screen.
     this.playerHelper.x = -100;
     this.playerHelper.y = -100;
   };
 }; 
 /**
- * Check if player hit water or reach destination
- * If player hit water, reset the player location, player will lose one life
- * If player reach destination, increase score
+ * Check if player hit water or reach destination.
+ * If player hit water, reset the player location, player will lose one life.
+ * If player reach destination, increase score.
  * @return {void}
  */
 Game.prototype.checkDestination = function() {
@@ -161,8 +161,8 @@ Game.prototype.checkDestination = function() {
   };
 };
 /**
- * Check if the game needs to be stopped 
- * If total life is zero, the game will stop
+ * Check if the game needs to be stopped. 
+ * If total life is zero, the game will stop.
  * @return {void}
  */
 Game.prototype.render = function() {
@@ -172,7 +172,7 @@ Game.prototype.render = function() {
   };
 };
 /**
- * Set the gameOver message
+ * Set the gameOver message.
  * @return {void}
  */
 Game.prototype.gameOver = function() {
@@ -190,48 +190,48 @@ Game.prototype.gameOver = function() {
 };
 /**
  * Enemy class.
- * Constructs an enemy in the game
+ * Constructs an enemy in the game.
  * @constructor
  */
 var Enemy = function() {
   /**
-   * Enemy's all y position values
+   * Enemy's all y position values.
    * @type {Array.<number>}
    */
   this.enemyY = [60,145,230,315];
   /**
-   * Enemy's x position values
+   * Enemy's x position values.
    * @type {number}
    */
   this.x = -101;
   /**
-   * Enemy's randomnized y position values
+   * Enemy's randomnized y position values.
    * @type {number}
    */
   this.y = this.enemyY[Math.round(Math.random()*3)];
 
   this.speed;
-  // load enemy's image
+  // Load enemy's image.
   this.sprite = 'images/enemy-bug.png';
 };
 /**
- * Update the enemy's position
+ * Update the enemy's position.
  * @param dt A time delta between ticks
  */
 Enemy.prototype.update = function(dt) {
-  // move enemy
+  // Move enemy
   this.x += this.speed * dt;
   // If our enemies move off the screen, restart them at one block (101px) 
   // right before the start of the screen.  
   if (this.x > 500) {
     this.x = -101;
-    // randomnize enemy's y value every time enemy move off 
-    // the screen and start from the begining again
+    // Randomnize enemy's y value every time enemy move off 
+    // the screen and start from the begining again.
     this.y = this.enemyY[Math.round(Math.random()*3)];
   }; 
 };
 /**
- * Renders and draws the enemy on the screen
+ * Renders and draws the enemy on the screen.
  * @return {void}
  */ 
 Enemy.prototype.render = function() {
@@ -239,33 +239,33 @@ Enemy.prototype.render = function() {
 };
 /**
  * Item class.
- * Constructs item that player can collect during the game
+ * Constructs item that player can collect during the game.
  * @constructor
  */
 var Item = function(){
   /**
-   * Item's all x position values
+   * Item's all x position values.
    * @type {Array.<number>}
    */
   this.itemX = [0,100,200,300,400];
   /**
-   * Item's all y position values
+   * Item's all y position values.
    * @type {Array.<number>}
    */
   this.itemY = [80,160,240,320];
   /**
-   * Item's x position value
+   * Item's x position value.
    * @type {number}
    */
   this.x = this.startPosX();
   /**
-   * Item's y position value
+   * Item's y position value.
    * @type {number}
    */
   this.y = this.startPosY();
 };
 /**
- * Set the x position value of the item
+ * Set the x position value of the item.
  * @return {number}
  */ 
 Item.prototype.startPosX = function() {
@@ -273,7 +273,7 @@ Item.prototype.startPosX = function() {
   return startX;
 };
 /**
- * Set the y position value of the item
+ * Set the y position value of the item.
  * @return {number}
  */
 Item.prototype.startPosY = function() {
@@ -281,7 +281,7 @@ Item.prototype.startPosY = function() {
   return startY;
 };
 /**
- * Update item's position
+ * Update item's position.
  * @param {number} dt A time delta between ticks
  * @return {void}
  */
@@ -290,7 +290,7 @@ Item.prototype.update = function(dt) {
   this.y*dt;
 };
 /**
- * Reset item's position
+ * Reset item's position.
  * @return {void}
  */
 Item.prototype.reset = function() {
@@ -298,7 +298,7 @@ Item.prototype.reset = function() {
   this.y = this.startPosY();
 };
 /**
- * Render and draws an item in the game
+ * Render and draws an item in the game.
  * @return {void}
  */
 Item.prototype.render = function() {
@@ -306,7 +306,7 @@ Item.prototype.render = function() {
 };
 /**
  * PlayerHelper class.
- * Constructs an helper item that player can collect during the game
+ * Constructs an helper item that player can collect during the game.
  * @constructor
  * @extends {Item}
  */
@@ -315,12 +315,12 @@ var PlayerHelper = function() {
   this.loadNewHelper();
   this.reset();
 };
-// PlayerHelper inherites Item 
+// PlayerHelper inherites Item. 
 PlayerHelper.prototype = Object.create(Item.prototype);
-// set PlayerHelper constructor
+// Set PlayerHelper constructor.
 PlayerHelper.prototype.constructor = PlayerHelper;
 /**
- * Loads an random new helper item
+ * Loads an random new helper item.
  * @return {void}
  */
 PlayerHelper.prototype.loadNewHelper = function() {
@@ -328,19 +328,19 @@ PlayerHelper.prototype.loadNewHelper = function() {
   this.sprite = this.spriteOptions[Math.floor(Math.random()*this.spriteOptions.length)];
 };
 /**
- * Renders and draws a new helper item
+ * Renders and draws a new helper item.
  * @return {void}
  */
 PlayerHelper.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 /**
- * Reset helper item's position every five seconds
+ * Reset helper item's position every five seconds.
  * @return {void}
  */
 PlayerHelper.prototype.reset = function() {
   var that = this;
-  // move the helper off the screen;
+  // Move the helper off the screen.
   that.x = -100;
   that.y = -100;
   setInterval(function() {
@@ -350,7 +350,7 @@ PlayerHelper.prototype.reset = function() {
 };
 /**
  * Player class.
- * Constructs a player
+ * Constructs a player.
  * @constructor
  */
 var Player = function() {
@@ -359,7 +359,7 @@ var Player = function() {
   this.y = 400;
 };
 /**
- * Update player's position
+ * Update player's position.
  * @param {number} dt A time delta between ticks
  * @return {void}
  */
@@ -368,7 +368,7 @@ Player.prototype.update = function(dt) {
   this.y*dt;
 };
 /**
- * Reset player's position
+ * Reset player's position.
  * @return {void}
  */
 Player.prototype.reset = function() {
@@ -376,14 +376,14 @@ Player.prototype.reset = function() {
   this.y = 400;
 };
 /**
- * Renders and draws a player in the game
+ * Renders and draws a player in the game.
  * @return {void}
  */
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 /**
- * Handles keyboard pressed events
+ * Handles keyboard pressed events.
  * @param {string} key The id of pressed key
  * @return {void}
  */
