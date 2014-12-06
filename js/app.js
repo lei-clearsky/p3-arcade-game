@@ -199,7 +199,7 @@ var Enemy = function() {
      * Enemy's all y position values
      * @type {Array.<number>}
      */
-	this.enemyY = [60,145,230,315];
+	  this.enemyY = [60,145,230,315];
     /**
      * Enemy's x position values
      * @type {number}
@@ -209,9 +209,9 @@ var Enemy = function() {
      * Enemy's randomnized y position values
      * @type {number}
      */
-	this.y = this.enemyY[Math.round(Math.random()*3)];
+	  this.y = this.enemyY[Math.round(Math.random()*3)];
 
-	this.speed;
+	  this.speed;
     // load enemy's image
     this.sprite = 'images/enemy-bug.png';
 };
@@ -391,23 +391,23 @@ Player.prototype.render = function() {
  */
 Player.prototype.handleInput = function(key) {
 	switch(key) {
-        case 'left':
-            if (this.x > 0)
-            this.x -= 100;
-            break;
-        case 'up':
-            if (this.y > 0)
-            this.y -= 90;
-            break;
-        case 'right':
-            if (this.x < 400)
-            this.x += 100;
-            break;
-        case 'down':
-            if (this.y < 375)
-            this.y += 90;
-            break;
-        default:
-            return;
+      case 'left':
+          if (this.x > 0)
+          this.x -= 100;
+          break;
+      case 'up':
+          if (this.y > 0)
+          this.y -= 90;
+          break;
+      case 'right':
+          if (this.x < 400)
+          this.x += 100;
+          break;
+      case 'down':
+          if (this.y < 375)
+          this.y += 90;
+          break;
+      default:
+          return;
     };
 };
