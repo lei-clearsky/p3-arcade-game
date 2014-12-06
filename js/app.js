@@ -103,7 +103,7 @@ Game.prototype.checkCollisions = function() {
 Game.prototype.checkPlayerHelpers = function() {
   // if the player collect an item
   if (Math.abs(this.player.x - this.playerHelper.x) < 50 && Math.abs(this.player.y - this.playerHelper.y) < 50) {
-      // if the player collects a heart, add one life
+    // if the player collects a heart, add one life
     if (this.playerHelper.sprite == 'images/Heart.png') {
       this.life ++;
       document.getElementById('life').innerHTML = 'Life: ' + this.life;
