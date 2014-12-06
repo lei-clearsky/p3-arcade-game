@@ -388,7 +388,7 @@ Player.prototype.render = function() {
  * @return {void}
  */
 Player.prototype.handleInput = function(key) {
-	switch(key) {
+  switch(key) {
     case 'left':
       if (this.x > 0)
         this.x -= 100;
